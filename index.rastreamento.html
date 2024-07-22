@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema Integrado</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    /* Conteúdo de styles.css aqui */
+    /* Reset de estilos básico */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        color: #fff; /* Letras brancas */
+        line-height: 1.6;
+        background-image: url('Veiculos.jpeg'); /* URL da imagem de fundo */
+        background-size: cover; /* Para cobrir toda a tela */
+        background-repeat: no-repeat; /* Evita repetição */
+        background-attachment: fixed; /* Fixa a imagem no fundo */
+    }
+    .header {
+        background-color: rgba(0, 0, 0, 0.6); /* Fundo do cabeçalho semi-transparente */
+        color: #fff;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    .button {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #4CAF50;
+        color: #fff;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        margin-right: 10px;
+    }
+    .content {
+        display: flex;
+        max-width: 1200px;
+        margin: 20px auto;
+        background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para conteúdo */
+        padding: 20px;
+    }
+    #map {
+        flex: 1;
+        height: 400px; /* Altura do mapa */
+    }
+    .sidebar {
+        width: 250px;
+        background-color: rgba(255, 255, 255, 0.5); /* Fundo semi-transparente para barra lateral */
+        padding: 1rem;
+    }
+    .sidebar h2 {
+        margin-bottom: 1rem;
+    }
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .sidebar ul li {
+        margin-bottom: 0.5rem;
+    }
+    .sidebar ul li a {
+        color: #fff;
+        text-decoration: none;
+    }
+    .sidebar ul li a:hover {
+        text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>Sistema Integrado</h1>
+  </header>
+
+  <!-- Conteúdo de cada arquivo HTML -->
+  <div class="content">
+    <form class="cadastro-form">
+      <label for="nomeMotorista">Nome do Motorista:</label>
+      <input type="text" id="nomeMotorista" name="nomeMotorista" required>
+
+      <label for="placaVeiculo">Placa do Veículo:</label>
+      <input type="text" id="placaVeiculo" name="placaVeiculo" required>
+
+      <label for="origem">Origem:</label>
+      <input type="text" id="origem" name="origem" required>
+
+      <label for="parada">Parada:</label>
+      <input type="text" id="parada" name="parada">
+
+      <label for="destino">Destino:</label>
+      <input type="text" id="destino" name="destino" required>
+
+      <button type="submit" class="button">Cadastrar</button>
+    </form>
+  </div>
+
+  <main>
+    <div id="map"></div>
+  </main>
+
+  <div class="content">
+    <form class="login-form">
+      <label for="username">Usuário:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit" class="button">Login</button>
+    </form>
+  </div>
+
+  <div class="content">
+    <h2>Relatórios disponíveis em breve...</h2>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Cria o mapa do Leaflet centrado no Brasil
+    const map = L.map('map').setView([-15.793889, -47.882778], 4);
+
+    // Adiciona a camada do mapa base do OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+    }).addTo(map);
+
+    // Exemplo de marcador de veículo
+    const vehicleMarker = L.marker([-23.55052, -46.633308]).addTo(map);
+
+    // Simulação de atualização de posição a cada 5 segundos
+    setInterval(() => {
+      const lat = -23.55052 + (Math.random() - 0.5) * 0.1;
+      const lng = -46.633308 + (Math.random() - 0.5) * 0.1;
+      vehicleMarker.setLatLng([lat, lng]);
+    }, 5000);
+  </script>
+</body>
+</html>
